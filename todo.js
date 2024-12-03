@@ -36,6 +36,7 @@ var buttons = [
   { action: "inactive", icon: "minus" },
   { action: "remove", icon: "trash" }
 ];
+
 function renderTodos() {
   var todoList = document.getElementById("todo-list");
   todoList.innerHTML = "";
@@ -74,6 +75,7 @@ function renderTodos() {
               )
             ) {
               todos.splice(todos.indexOf(todo), 1);
+              saveTodos();
               renderTodos();
             }
           };
@@ -81,6 +83,7 @@ function renderTodos() {
           btn.title = "Mark as " + button.action;
           btn.onclick = function() {
             todo.state = button.action;
+            saveTodos();
             renderTodos();
           };
         }
