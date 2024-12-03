@@ -11,11 +11,21 @@ var currentTab = "all";
 var form = document.getElementById("new-todo-form");
 var input = document.getElementById("new-todo-title");
 
+// TODO deleting to do should also be preserved
+if (localStorage.getItem("todos")) {
+  todos = JSON.parse(localStorage.getItem("todos"));
+}
+
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
 form.onsubmit = function(event) {
   event.preventDefault();
   if (input.value && input.value.length) {
     todos.push(new Todo(input.value, "active"));
     input.value = "";
+    saveTodos();
     renderTodos();
   }
 };
