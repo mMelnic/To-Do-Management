@@ -11,7 +11,6 @@ var currentTab = "all";
 var form = document.getElementById("new-todo-form");
 var input = document.getElementById("new-todo-title");
 
-// TODO deleting to do should also be preserved
 if (localStorage.getItem("todos")) {
   todos = JSON.parse(localStorage.getItem("todos"));
 }
@@ -94,6 +93,8 @@ function renderTodos() {
 
       todoList.appendChild(div1);
     });
+
+    updateBadges();
 }
 
 renderTodos();
@@ -107,4 +108,18 @@ function selectTab(element) {
   }
   element.classList.add("active");
   renderTodos();
+}
+
+function updateBadges() {
+  tabs.forEach(function (tab) {
+    var count = todos.filter(function (todo) {
+      return tab === "all" || todo.state === tab;
+    }).length;
+    var badge = document.querySelector(
+      '.todo-tab[data-tab-name="' + tab + '"] .badge'
+    );
+    if (badge) {
+      badge.textContent = count;
+    }
+  });
 }
