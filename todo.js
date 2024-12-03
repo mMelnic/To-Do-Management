@@ -33,17 +33,20 @@ var buttons = [
   { action: "done", icon: "ok" },
   { action: "active", icon: "plus" },
   { action: "inactive", icon: "minus" },
-  { action: "remove", icon: "trash" }
+  { action: "remove", icon: "trash" },
+  { action: "up", icon: "arrow-up" },
+  { action: "down", icon: "arrow-down" },
 ];
 
 function renderTodos() {
   var todoList = document.getElementById("todo-list");
   todoList.innerHTML = "";
-  todos
-    .filter(function(todo) {
-      return todo.state === currentTab || currentTab === "all";
-    })
-    .forEach(function(todo) {
+
+  var filteredTodos = todos.filter(function (todo) {
+    return todo.state === currentTab || currentTab === "all";
+  });
+
+  filteredTodos.forEach(function(todo, index) {
       var div1 = document.createElement("div");
       div1.className = "row";
 
@@ -78,6 +81,30 @@ function renderTodos() {
               renderTodos();
             }
           };
+        } else if (button.action === "up") {
+          btn.title = "Move Up";
+          btn.onclick = function () {
+            if (index > 0) {
+              var temp = filteredTodos[index - 1];
+              filteredTodos[index - 1] = filteredTodos[index];
+              filteredTodos[index] = temp;
+              todos = recombineTodos(filteredTodos);
+              saveTodos();
+              renderTodos();
+            }
+          };
+        } else if (button.action === "down") {
+          btn.title = "Move Down";
+          btn.onclick = function () {
+            if (index < filteredTodos.length - 1) {
+              var temp = filteredTodos[index + 1];
+              filteredTodos[index + 1] = filteredTodos[index];
+              filteredTodos[index] = temp;
+              todos = recombineTodos(filteredTodos);
+              saveTodos();
+              renderTodos();
+            }
+          };
         } else {
           btn.title = "Mark as " + button.action;
           btn.onclick = function() {
@@ -95,6 +122,13 @@ function renderTodos() {
     });
 
     updateBadges();
+}
+
+function recombineTodos(filteredTodos) {
+  var remainingTodos = todos.filter(function (todo) {
+    return filteredTodos.indexOf(todo) === -1;
+  });
+  return filteredTodos.concat(remainingTodos);
 }
 
 renderTodos();
