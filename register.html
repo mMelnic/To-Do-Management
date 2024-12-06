@@ -62,14 +62,14 @@
         
                     <div class="row">
                         <!-- Age -->
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="age">Age</label>
                             <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age" min="18"
                                 max="99" required>
                         </div>
         
                         <!-- Sex -->
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label for="sex">Sex</label>
                             <select class="form-control" id="sex" name="sex" required>
                                 <option value="">Select</option>
@@ -79,7 +79,7 @@
                         </div>
         
                         <!-- Neptun -->
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label for="neptun">Neptun Code</label>
                             <input type="text" class="form-control" id="neptun" name="neptun"
                                 placeholder="Enter your Neptun code" pattern="[a-zA-Z][a-zA-Z0-9]{5}"
@@ -104,9 +104,14 @@
                     </div>
         
                     <!-- Buttons -->
-                    <div class="form-group text-right">
-                        <a href="home.html" class="btn btn-danger">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="form-group row text-right">
+                        <div class="col-md-8"></div> <!-- Empty space to push buttons to the right -->
+                        <div class="col-md-2 col-xs-6">
+                            <a href="home.html" class="btn btn-danger btn-block">Cancel</a>
+                        </div>
+                        <div class="col-md-2 col-xs-6">
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                        </div>
                     </div>
                 </form>
             </div>
